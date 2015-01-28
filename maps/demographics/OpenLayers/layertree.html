@@ -1,0 +1,352 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Location</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="styles/vendor.css"/>
+
+  <!-- bootswatch yeti theme -->
+
+
+  <link rel="stylesheet" href="styles/main.css"/>
+
+  <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css"/>
+
+  <!-- OpenLayers -->
+  <link rel="stylesheet" href="http://ol3js.org/en/master/css/ol.css">
+
+
+  <!-- bootswatch yeti theme -->
+
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+  <!-- OpenLayers -->
+
+</head>
+<body>
+
+  <style>
+  #tree {
+    display: none;
+  }
+
+
+  .jumbotron {
+
+    text-align: center;
+  }
+  .jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+  }
+
+  .button {
+    background-color:#0e953f;
+    color:#fff;
+    font-family:'Helvetica Neue',sans-serif;
+    font-size:18px;
+    line-height:30px;
+    border-radius:20px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    border:0;
+    text-shadow:#C17C3A 0 -1px 0;
+
+    height:32px
+
+  }
+  ul.layerstack {
+    list-style: none;
+  }
+
+  ul.layerstack li {
+    border-bottom: 1px solid #ccc;
+    padding: 3px;
+  }
+  ul.layerstack li:hover {
+    background-color: #eee;
+  }
+  ul.layerstack li.selected {
+    background-color: #ddd;
+  }
+</style>
+<style>
+.tree {
+  min-height:20px;
+  /*max-height: 150px;*/
+  overflow: auto;
+  padding: 3px;
+  margin-bottom:5px;
+  -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+.tree li {
+  list-style-type:none;
+  margin:0;
+  padding:10px 5px 10px 5px;
+  position:relative;
+  /*                -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border:1px solid #999;
+  border-radius:5px;*/
+}
+.tree li::before, .tree li::after {
+  content:'';
+  left:-20px;
+  position:absolute;
+  right:auto
+}
+.tree li::before {
+  border-left:1px solid #999;
+  bottom:50px;
+  height:100%;
+  top:0;
+  width:1px
+}
+.tree li::after {
+  border-top:1px solid #999;
+  height:20px;
+  top:25px;
+  width:25px
+}
+.tree li span {
+  display:inline-block;
+  padding:3px 8px;
+  text-decoration:none
+}
+.tree li.parent_li>span {
+  cursor:pointer
+}
+.tree>ul>li::before, .tree>ul>li::after {
+  border:0
+}
+.tree li:last-child::before {
+  height:30px
+}
+.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
+  background:#eee;
+  border:1px solid #94a0b4;
+  color:#000;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
+}
+</style>
+
+<div class="container">
+  <div>
+    <div class="col-md-6">
+
+      <button id = "layerbutton" class="btn btn-primary btn-md">Layer Tree</button>
+      <button id = "lafbdfbdfon" class="btn btn-primary btn-md">dfbfdbfde</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="http://ol3js.org/en/master/build/ol.js"></script>
+<script src="scripts/vendor.js"></script>
+
+
+<script src="scripts/plugins.js"></script>
+
+<div id="row">
+</div>
+<div id="tree" class="col-md-2">
+
+  <div id="layertree" class="tree"></div>
+
+</div>
+
+  <div>
+    <div id="map" class="col-md-12">
+    <div id="map" class="map"></div>
+  </div>
+
+</div>
+
+
+
+
+<script>
+var town = new ol.layer.Tile({
+  title: "Townships",
+  source: new ol.source.TileWMS({
+    url: 'http://gis.halker.com:8080/geoserver/PLSS/wms',
+    params: {LAYERS: 'PLSS:us_townships'}
+  }),
+  name: 'Township'
+});
+
+var section = new ol.layer.Tile({
+  title: "Section",
+  source: new ol.source.TileWMS({
+    url: 'http://gis.halker.com:8080/geoserver/PLSS/wms',
+    params: {LAYERS: 'PLSS:section'}
+  }),
+  name: 'Section'
+});
+var map = new ol.Map({
+  target: 'map',  // The DOM element that will contains the map
+  renderer: 'canvas', // Force the renderer to be used
+  layers: [town, section],
+  // Create a view centered on the specified location and zoom level
+  view: new ol.View({
+    center: ol.proj.transform([-104.9847034 , 39.7391536], 'EPSG:4326', 'EPSG:3857'),
+    zoom: 10
+  })
+});
+
+// Name the root layer group
+map.getLayerGroup().set('name', 'Layers');
+
+/**
+* Build a tree layer from the map layers with visible and opacity
+* options.
+*
+* @param {type} layer
+* @returns {String}
+*/
+function buildLayerTree(layer) {
+  var elem;
+  var name = layer.get('name') ? layer.get('name') : "Group";
+  var div = "<li data-layerid='" + name + "'>" +
+  "<span><i class='glyphicon glyphicon-file'></i> " + layer.get('name') + "</span>" +
+  "<i class='glyphicon glyphicon-check'></i> " +
+  "<input style='width:80px;' class='opacity' type='text' value='' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-tooltip='hide'>";
+  if (layer.getLayers) {
+    var sublayersElem = '';
+    var layers = layer.getLayers().getArray(),
+    len = layers.length;
+    for (var i = len - 1; i >= 0; i--) {
+      sublayersElem += buildLayerTree(layers[i]);
+    }
+    elem = div + " <ul>" + sublayersElem + "</ul></li>";
+  } else {
+    elem = div + " </li>";
+  }
+  return elem;
+}
+
+/**
+* Initialize the tree from the map layers
+* @returns {undefined}
+*/
+function initializeTree() {
+
+  var elem = buildLayerTree(map.getLayerGroup());
+  $('#layertree').empty().append(elem);
+
+  $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+  $('.tree li.parent_li > span').on('click', function(e) {
+    var children = $(this).parent('li.parent_li').find(' > ul > li');
+    if (children.is(":visible")) {
+      children.hide('fast');
+      $(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus').removeClass('glyphicon-minus');
+    } else {
+      children.show('fast');
+      $(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-minus').removeClass('glyphicon-plus');
+    }
+    e.stopPropagation();
+  });
+}
+
+/**
+* Finds recursively the layer with the specified key and value.
+* @param {ol.layer.Base} layer
+* @param {String} key
+* @param {any} value
+* @returns {ol.layer.Base}
+*/
+function findBy(layer, key, value) {
+
+  if (layer.get(key) === value) {
+    return layer;
+  }
+
+  // Find recursively if it is a group
+  if (layer.getLayers) {
+    var layers = layer.getLayers().getArray(),
+    len = layers.length, result;
+    for (var i = 0; i < len; i++) {
+      result = findBy(layers[i], key, value);
+      if (result) {
+        return result;
+      }
+    }
+  }
+
+  return null;
+}
+</script>
+
+<script>
+  (function() {
+    $('#code_text').text( $('#code').text() );
+    hljs.initHighlightingOnLoad();
+  })();
+</script>
+<script>
+$(document).ready(function() {
+
+  initializeTree();
+
+  // Handle opacity slider control
+  $('input.opacity').slider().on('slide', function(ev) {
+    var layername = $(this).closest('li').data('layerid');
+    var layer = findBy(map.getLayerGroup(), 'name', layername);
+
+    layer.setOpacity(ev.value);
+  });
+
+  // Handle visibility control
+  $('i').on('click', function() {
+    var layername = $(this).closest('li').data('layerid');
+    var layer = findBy(map.getLayerGroup(), 'name', layername);
+
+    layer.setVisible(!layer.getVisible());
+
+    if (layer.getVisible()) {
+      $(this).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+    } else {
+      $(this).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+    }
+  });
+
+
+  $("#tree").hide();
+  $(".tree").show();
+
+  $('#layerbutton').on('click', function () {
+    $('#map').toggleClass('col-md-12').toggleClass('col-md-10');
+    $("#tree").toggle("slide");
+  });
+
+
+
+  });
+
+</script>
+
+
+</body>
+</html>

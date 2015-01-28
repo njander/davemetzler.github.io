@@ -1,0 +1,260 @@
+
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Location</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+
+  <!-- bootswatch yeti theme -->
+  <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/bootstrap.css"/>
+  <link rel="stylesheet" href="styles/main.css"/>
+
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+
+  <!-- OpenLayers -->
+  <link rel="stylesheet" href="http://ol3js.org/en/master/css/ol.css">
+</head>
+<body>
+  <!--[if lt IE 10]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+<style>
+
+
+/* Main marketing message and sign up button */
+.jumbotron {
+
+  text-align: center;
+}
+.jumbotron h1 {
+  font-size: 72px;
+  line-height: 1;
+}
+
+.button {
+  background-color:#0e953f;
+  color:#fff;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:18px;
+  line-height:30px;
+  border-radius:20px;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
+  border:0;
+  text-shadow:#C17C3A 0 -1px 0;
+
+  height:32px
+
+}
+  </style>
+
+
+
+
+  <button id = "location" class="btn btn-primary btn-md">Location Tools</button>
+  <button id="geolocate"class="btn btn-primary btn-md">Geolocate Me!</button>
+
+
+
+
+    <div id= "top" class="row">
+
+      <div class="col-md-3">
+        <form role="form">
+          <div class="form-group">
+            <label for="lat">Latitude:</label>
+            <input type="text" class="form-control" id="lat" placeholder="longitude" value="0.0">
+          </div>
+
+
+
+
+        </form>
+      </div>
+      <div class="col-md-3">
+        <form role="form">
+          <div class="form-group">
+            <label for="lon">Longitude:</label>
+            <input type="text" class="form-control" id="lon" placeholder="latitude" value="0.0">
+          </div>
+
+
+
+          <button type="button" class="btn btn-primary btn-xs" id="changeCenter">Change Coordinates</button>
+        </form>
+      </div>
+
+
+
+      <div class="col-md-3">
+        <form role="form">
+          <div class="form-group">
+            <label for="angle">Degrees:</label>
+            <input type="text" class="form-control" id="angle" placeholder="rotation angle" value="5.0">
+
+          </div>
+
+          <button type="button" class="btn btn-primary btn-xs" id="changeRotation">Change</button>
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        <form role="form">
+          <div class="form-group">
+            <label for="level">Level:</label>
+            <input type="text" class="form-control" id="level" placeholder="zoom level" value="7">
+          </div>
+
+          <button type="button" class="btn btn-primary btn-xs" id="changeZoom">Change</button>
+        </form>
+      </div>
+    </div id="top">
+
+    <div id="map" class="map"></div>
+
+
+    <div id="map" class="map"></div>
+
+
+    <pre><code id="code_text" class="javascript"></code></pre>
+
+
+
+  </div>
+
+  <!-- OpenLayers -->
+  <script src="http://ol3js.org/en/master/build/ol.js"></script>
+
+  <!-- Google Analytics -->
+<div id="map"></div>
+
+<script>
+
+    var map = new ol.Map({
+      target: 'map',  // The DOM element that will contains the map
+      renderer: 'canvas', // Force the renderer to be used
+      layers: [
+      // Add a new Tile layer getting tiles from OpenStreetMap source
+      new ol.layer.Tile({
+        source: new ol.source.OSM()
+      }),
+      new ol.layer.Tile({
+        title: "Townships",
+        source: new ol.source.TileWMS({
+          url: 'http://gis.halker.com:8080/geoserver/PLSS/wms',
+          params: {LAYERS: 'PLSS:us_townships'}
+        })
+      })
+
+
+      ],
+      // Create a view centered on the specified location and zoom level
+      view: new ol.View({
+        center: ol.proj.transform([-104.9847034 , 39.7391536], 'EPSG:4326', 'EPSG:3857'),
+        zoom: 10
+      })
+    });
+    var geolocation = new ol.Geolocation({
+      tracking: true
+    });
+    geolocation.bindTo('projection', map.getView());
+
+    geolocation.on('change', function(evt) {
+      //save position and set map center
+      var pos = geolocation.getPosition();
+      map.getView().setCenter(pos);
+
+      var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(pos)
+      });
+      var vectorSource = new ol.source.Vector({
+        features: [iconFeature]
+      });
+      var vectorLayer = new ol.layer.Vector({
+        source: vectorSource
+      });
+      var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(({
+          anchor: [0.5, 46],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          opacity: 0.75,
+          src: 'data/icon.png'
+        }))
+      });
+
+
+
+      //create icon at new map centerand
+
+
+
+
+
+
+    $(document).ready(function() {
+      $( "#location" ).click(function() {
+        var $t = $('#top');
+
+        if ($t.is(':visible')) {
+          $t.slideUp();
+          // Other stuff to do on slideUp
+        } else {
+          $t.slideDown();
+          // Other stuff to down on slideDown
+        }
+      });
+
+
+$( "#geolocate" ).click(function() {
+
+  map.getView().setCenter(geolocation.getPosition());
+  map.addLayer(vectorLayer);
+
+});
+
+
+
+
+
+      // Once the document is ready retrieve the initial map view center
+      // location and set in the input fields.
+      var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326');
+
+      $('#lon').val(center[0]);
+      $('#lat').val(center[1]);
+      $('#angle').val(map.getView().getRotation());
+      $('#level').val(map.getView().getZoom());
+
+      // For each button click retrieve the values and apply on the
+      // map view.
+      $('#changeCenter').on('click', function() {
+        var center = [parseInt($('#lon').val()), parseInt($('#lat').val())];
+        map.getView().setCenter(ol.proj.transform(center, 'EPSG:4326', 'EPSG:3857'));
+      });
+
+      $('#changeRotation').on('click', function() {
+        map.getView().setRotation($('#angle').val() * Math.PI / 180);
+      });
+
+      $('#changeZoom').on('click', function() {
+        map.getView().setZoom($('#level').val());
+      });
+
+
+    });
+  });
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+    	<meta charset="utf-8" />
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+        <link rel="stylesheet" type="text/css" href="own_style.css" />
+        <link rel="stylesheet" type="text/css" href="js/MarkerCluster.Default.css" />
+        <link rel="stylesheet" type="text/css" href="js/MarkerCluster.css" />
+        
+        
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href=" leaflet/leaflet.ie.css" />
+        <![endif]-->
+        
+ <style>
+            html, body, #map {
+                height: 100%;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+        </style>
+        <title>Traffic</title>
+    </head>
+    
+    <body>
+    	
+    	<script src="js/leaflet.markercluster-src.js"></script>
+    	<script src="js/leaflet.markercluster.js"></script>
+    	<script src="data/traffic2.js"></script>
+    	<script src="data/exp_traffic.js"></script>
+    	<script src="data/wells.js"></script>
+  		
+        <div id="map"></div>
+        <script type="text/javascript">
+
+            var map = L.map('map', {
+                center: [39.7392, -104.9847],
+                zoom: 10
+            });
+           
+            var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+        
+            	var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">gis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+ var markers = L.markerClusterGroup(
+ 	{ maxClusterRadius: 20}
+ );
+	var points_rand = L.geoJson(exp_traffic);
+		
+	markers.addLayer(points_rand); // add it to the cluster group
+	map.addLayer(markers);		// add it to the map
+
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html>
+<head> 
+	<title>Denver Demographics</title>
+	
+	<meta charset="utf-8" />
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.css" /> <!-- we will us e this as the styling script for our webmap-->
+	<link rel="stylesheet" type="text/css" href="css/leaflet-sidebar.css">
+	<link rel="stylesheet" type="text/css" href="css/own_style.css">
+	<link rel="stylesheet" type="text/css" href="css/leaflet.label.css">
+	<link rel="stylesheet" href="js/Leaflet.awesome-markers-2.0-develop/dist/leaflet.awesome-markers.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> <!-- this is the javascript file that does the magic-->
+<style>
+html, body, #map {
+            height: 100%;
+            font: 10pt "Lucida Console", Monaco, monospace;
+        
+
+                padding: 0;
+                margin: 0;
+           }
+	.lorem {
+	
+            font-style: italic;
+            color: #AAA;
+        }
+     .sidehead {
+     		
+            font-style: bold;
+            
+            color: #080808;
+        }
+        #footer {
+		position:absolute;
+		bottom:0;
+		width:100%;
+		height:55px;
+		z-index: 100;
+		text-align : center;			/* Height of the footer */
+	
+	}
+	
+
+</style>
+</head>
+<body>
+	</div>
+	<div id="footer">
+		<table style="width:100%">
+  <tr>
+    <td bgcolor="#FFFFFF"><b> White Change </b></td>
+    <td bgcolor="#E6601">-27.8% - -7.2%</td> 
+    <td bgcolor="#FDB863">-7.2% - -2.4%</td>
+    <td bgcolor="#f7f7f7">-2.4% - +1.7% </td>
+    <td bgcolor="#B2abd2">+1.7% - +10.2% </td>
+    <td bgcolor="#5e3c99">+10.2% - +69.6% </td>
+  </tr>
+   <tr>
+    <td bgcolor="#FFFFFF"><b> Black Change </b></td>
+    <td bgcolor="#CA0020">-18.8% - -15.1%</td> 
+    <td bgcolor="#F4A582">-15.1% - -4.8%</td>
+    <td bgcolor="#f7f7f7">-4.8% - +1.7% </td>
+    <td bgcolor="#92C5DE">+1.7% - +4.8% </td>
+    <td bgcolor="#0571B0">+4.8% - +10% </td>
+  </tr>
+   <tr>
+    <td bgcolor="#FFFFFF"><b> Hispanic Change </b></td>
+    <td bgcolor="#D7191C">-29.5% - -19.5%</td> 
+    <td bgcolor="#FDAE61">-19.5% - -5.4%</td>
+    <td bgcolor="#FFFFC0">-5.4% - +1.6% </td>
+    <td bgcolor="#A6D96A">+1.6% - +9.7% </td>
+    <td bgcolor="#1A9641">+9.7% - +22.4% </td>
+  </tr>
+  
+</table>
+	</div>
+	<div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <ul class="sidebar-tabs" role="tablist">
+            <li><a href="#info" role="tab"><i class="fa fa-info-circle fa-lg"></i></a></li>
+            <li><a href="#desc" role="tab"><i class="fa fa-user fa-lg" style="color:#ffedfd"></i></a></li>
+            <li><a href="#hisp" role="tab"><i class="fa fa-user fa-lg" style="color:#a96927"></i></a></li>
+            <li><a href="#black" role="tab"><i class="fa fa-user fa-lg" ></i></a></li>
+            <li><a href="#conc" role="tab"><i class="fa fa-lightbulb-o fa-lg" ></i></a></li>
+            <li><a href="#credits" role="tab"><i class="fa fa-cog fa-lg" ></i></a></li>
+            
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content active">
+            <div class="sidebar-pane" id="info">
+                <h1>Demograhic changes in Denver (2000-2010)</h1>
+
+                <p class= "sidehead">10 years of gentrification</p>
+
+                <p class="lorem">I have always been interested in the process of gentrification. The slow steady ebb of the well to do displacing the less well to do that is rapidly transforming my fair city of Denver. Using census data from 2000 and 2010 I have calculated the change in percentage of Blacks, Whites and Hispanics. In a nutshell the gradients show where one population left and where they settled.</p>
+                
+                <p class="lorem">I know I am using race as an economic indicator here which some people may argue is a false correlation but decades of  <a href="http://inequality.org/racial-inequality" target="_blank"> research </a> implies otherwise and while I concede there are well to do minorities and impoverished whites I believe assuming whites are better off is a safe assumption.</p>
+                
+                <p class="lorem">Click on the icons to see in depth analysis for each race.</p>
+ </div>
+ 			<div class="sidebar-pane" id="desc">
+                <h1>White People</h1>
+
+                <p class= "sidehead">Coming back to the city</p>
+                <p class="lorem">I think we can all agree the city has become less diverse over the years buts it’s always good to have some data to back it up. If we take a look at the White Change layer we can clearly see the migration back into the city. </p>
+                 <p class="lorem">Neighborhoods such as <font color=#E66101><b>Ruby Hill </b></font> have a strong Orange tint indicating a large negative change (white people leaving) from 2000-2010. Contrast this with the deep purple of <font color=#5E3C99><b>Five Points </b></font> which indicates a strong influx of white people in a neighborhood to get an idea of where they moved to. </p>
+
+  </div>
+  <div class="sidebar-pane" id="hisp">
+                <h1>Hispanic People</h1>
+
+                <p class= "sidehead">Pushing further out</p>
+                <p class="lorem">Hispanics and Whites have traditionally made up the bulk of people in Colorado. While there is a significant Black population in Denver outside of the city generally there are two predominant races and as is the way with most things the White people tend to be better off.  This layer shows what neighborhoods they have left and where they have moved to. Notice the correlation between white gains and Hispanic losses. </p>
+              	<p class="lorem">As the great inward migration continues we see Hispanics pushed from central neighborhoods of <font color=#D7191C><b>Highland </b></font> to the periphery <font color=#1a9641><b>Bear Valley</b></font>. </p>
+           
+  </div>
+    <div class="sidebar-pane" id="black">
+                <h1>Black People</h1>
+
+                <p class= "sidehead">A slow displacement</p>
+                <p class="lorem">Black people, the minority of the minority, have too been displaced. What is interesting to note here is how organized the displacement seems to be. While Hispanics have elected to move in all directions blacks appear to have stayed in the North East of the city with the majority of neighborhoods elsewhere exhibit little change. It should be noted also that, on the whole, Black migration is much less extreme than the other races (see legend below).</p>
+                <p class="lorem">Notice how <font color=#ca0020><b>Whittier </b></font>neighborhood has lost a significant percentage of black people and they appear to have moved east to <font color=#0571b0><b>Windsor</b></font>.</p>
+           
+  </div>
+         <div class="sidebar-pane" id="conc">
+                <h1>Conclusion</h1>
+				<p class="lorem">In conclusion we can see a clear trend of affluent people moving back to the city while displacing the poor; I suppose that is the very definition of gentrification. If that is a good or bad thing I leave up to you to decide. </p>
+              
+               <p class="lorem">In my opinion I believe it is an unstoppable process exasperated by contemporary culture and while the short term benefits are substantial I question the long term effects of displacing such a large amount of ethnic individuals. In short we are sacrificing the soul and identity of these neighborhoods while marginalizing entire groups of people for a few short years of Urban renewal. </p>
+           
+  </div>
+  <div class="sidebar-pane" id="credits">
+                <h1>Credits</h1>
+				<p class="lorem">Many thanks to the fine people at <a href="http://drcog.org/" target="_blank"> DRCOG</a> for putting together the Census Data by neighborhoods so I didn’t have to. Also to <a href="http://www.openstreetmap.org" target="_blank"> Open Street Map</a> and <a href="http://maps.stamen.com/#watercolor/12/37.7706/-122.3782" target="_blank"> Stamen</a> for the basemaps.</p>
+				<p class="lorem">This map runs on <a href="http://leafletjs.com" target="_blank"> Leaflet</a>, one hell of a mapping platform. </p>
+              
+            
+  </div>
+        </div>
+    </div>
+
+    <div id="map" class="sidebar-map"></div>
+	<div id="map"></div> <!-- this is the initial look of the map. in most cases it is done externally using something like a map.css stylesheet were you can specify the look of map elements, like background color tables and so on.-->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js"></script> <!-- this is the javascript file that does the magic-->
+	<script src="js/Leaflet.awesome-markers-2.0-develop/dist/leaflet.awesome-markers.js"></script>
+				<script src='js/leaflet-sidebar.js' ></script>
+				<script src='js/jquery-sidebar.js' ></script>
+				<script src='data/exp_WhiteChange.js' ></script>
+				<script src='js/leaflet.label.js' ></script>
+				
+				<script src='data/exp_HispanicChange.js' ></script>
+				
+				<script src='data/exp_BlackChange.js' ></script>
+				
+	<script>
+		var map = L.map('map', { zoomControl:true }).fitBounds([[39.963,-105.159],[39.583,-104.571]]);
+		//var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+	var feature_group = new L.featureGroup([]);
+
+	var raster_group = new L.LayerGroup([]);
+	var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //attribution: '&copy; OpenStreetMap contributors'
+            });
+	var basemap= L.tileLayer('http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.png');
+	//map.attributionControl.addAttribution(additional_attrib + 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>');	
+	basemap.addTo(map);	
+
+
+
+	var layerOrder=new Array();
+				
+				function popup(feature, layer) {
+				//var popupContent = '<table><tr></tr><tr><td>Name: </td><td>' + "<b>" + feature.properties.NBRHD_NAME + "</b>" + '</td></tr>'+ '<tr></tr><tr><td>Percent Change (White): </td><td>' + feature.properties.chng_wht + '</td></tr>' + '<tr></tr><tr><td>% change (Black): </td><td>' + feature.properties.chg_blk + '</td></tr>''<tr></tr><tr><td>% change (Hispanic): </td><td>' + feature.properties.chg_hsp + '</td></tr></table>'  ;
+				var popupContent = '<table><tr></tr><tr><td>Name: </td><td>' + "<b>" + feature.properties.name + "</b>" + '</td></tr>' + '<tr></tr><tr><td>Percent Change (White): </td><td>' + feature.properties.chg_wht + '</td></tr>' 
+				+ '<tr></tr><tr><td>Percent Change (Black): </td><td>' + feature.properties.chg_blk + '</td></tr>'+  '<tr></tr><tr><td>Percent Change (Hispanic): </td><td>' + feature.properties.chg_hsp + '</td></tr>' + '</table>'
+				layer.bindPopup(popupContent);
+			}		
+				var exp_BlackChangeJSON = new L.geoJson(exp_BlackChange,{
+					onEachFeature: popup,
+					style: function (feature) {
+						return {fillColor: feature.properties.color_qgis2leaf,
+								color: '#000',
+								weight: 1,
+								opacity: feature.properties.transp_qgis2leaf,
+								fillOpacity: .6};
+						}
+					});
+				feature_group.addLayer(exp_BlackChangeJSON);
+				
+						//add comment sign to hide this layer on the map in the initial view.
+					
+				
+						
+				var exp_HispanicChangeJSON = new L.geoJson(exp_HispanicChange,{
+					onEachFeature: popup,
+					style: function (feature) {
+						return {fillColor: feature.properties.color_qgis2leaf,
+								color: '#000',
+								weight: 1,
+								opacity: feature.properties.transp_qgis2leaf,
+								fillOpacity: .6};
+						}
+					});
+				feature_group.addLayer(exp_HispanicChangeJSON);
+				
+						//add comment sign to hide this layer on the map in the initial view.
+						
+				
+						
+				var exp_WhiteChangeJSON = new L.geoJson(exp_WhiteChange,{
+					onEachFeature: popup,
+					style: function (feature) {
+						return {fillColor: feature.properties.color_qgis2leaf,
+								color: '#000',
+								weight: 1,
+								opacity: feature.properties.transp_qgis2leaf,
+								fillOpacity: .6};
+						}
+					});
+				feature_group.addLayer(exp_WhiteChangeJSON);
+								
+						//add comment sign to hide this layer on the map in the initial view.
+						exp_WhiteChangeJSON.addTo(map);
+		
+		var sidebar = L.control.sidebar('sidebar').addTo(map);
+		
+
+	L.control.layers({'Stamen Watercolor': basemap, 'Street Map': osm},{"White Change": exp_WhiteChangeJSON,"Hispanic Change": exp_HispanicChangeJSON,"Black Change": exp_BlackChangeJSON},{collapsed:false}).addTo(map);
+	
+	
+	</script>
+</body>
+</html>
+	

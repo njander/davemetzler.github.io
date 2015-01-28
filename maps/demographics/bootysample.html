@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+  <title>map example</title>
+
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  
+<link rel="stylesheet" href="http://ol3js.org/en/master/css/ol.css">
+</head>
+
+<style>
+#leftpane{
+  background-color: red;
+
+}
+#map{
+  background-color: black;
+
+  height: 100%;
+
+}
+
+
+</style>
+<body>
+  <div class="container-fluid">
+    <div class="col-xs-12">
+      <button id="featureinfobutton" class="btn btn-primary btn-md alert-info">Well Info</button>
+      <button id="facinfobutton" class="btn btn-primary btn-md alert-success">Facility Info</button>
+</div>
+    <div id="row table-row">
+      <div id="leftpane" class="col-md-2">
+        <ul>
+          <li>bang</li>
+          <li>bang</li>
+          <li>bang</li>
+          <li>bang</li>
+          <li>bang</li>
+          <li>bang</li>
+
+        </ul>
+
+      </div>
+      <div>
+        <div id="map" class="col-md-10 fill">
+
+      </div>
+    </div>
+
+
+  </div>
+  <script src="http://ol3js.org/en/master/build/ol.js"></script>
+
+
+<script>
+var osm = new ol.layer.Tile({
+  source: new ol.source.OSM(),
+  name: "Open Street Map"
+});
+
+var view = new ol.View({
+  center: ol.proj.transform([-102.6609  , 32.4104 ], 'EPSG:4326', 'EPSG:3857'),
+  zoom: 12
+});
+
+var map = new ol.Map({
+  layers: [osm],
+  target: 'map',
+  renderer: 'canvas',
+  //interactions: ol.interaction.defaults().extend([select]),
+  view: view
+});
+</script>
+
+
+</body>
+</html>
