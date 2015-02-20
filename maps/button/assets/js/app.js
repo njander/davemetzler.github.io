@@ -3,10 +3,6 @@ var map, featureList, boroughSearch = [], theaterSearch = [], museumSearch = [];
 $(document).on("click", ".feature-row", function(e) {
   sidebarClick(parseInt($(this).attr("id"), 10));
 });
-$("#file-btn").click(function(event) {
-  event.preventDefault();
-  $('.leaflet-control-filelayer').is(':visible') ? fileloader.removeFrom(map) : fileloader.addTo(map);
-});
 
 $("#about-btn").click(function() {
   $("#aboutModal").modal("show");
@@ -94,4 +90,8 @@ map = L.map("map", {
   layers: [mapquestOSM],
   zoomControl: false,
   attributionControl: false
+});
+$("#file-btn").click(function(event) {
+  event.preventDefault();
+  $('.leaflet-control-filelayer').is(':visible') ? fileloader.removeFrom(map) : fileloader.addTo(map);
 });
