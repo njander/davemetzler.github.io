@@ -119,7 +119,18 @@ var point = L.geoJson(null, {
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Name</th><td>" + feature.properties.NAME + "</td></tr>" + "<table>";
+      var numwhite = feature.properties.WHITE / feature.properties.POP2000;
+      var numblack = feature.properties.BLACK / feature.properties.POP2000;
+      var numhisp = feature.properties.HISPANIC / feature.properties.POP2000;
+      var nummale = feature.properties.MALES / feature.properties.POP2000;
+      var numfemale = feature.properties.FEMALES / feature.properties.POP2000;
+      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Population (2000)</th><td>" + feature.properties.POP2000 + "</td></tr>" +
+      "<tr><th>Population (2007)</th><td>" + feature.properties.POP2007 + "</td></tr>" +
+      "<tr><th>Percent White</th><td>" + (numwhite.toFixed(2) * 100) + "%</td></tr>" +
+      "<tr><th>Percent Black</th><td>" + (numblack.toFixed(2) * 100) + "%</td></tr>" +
+      "<tr><th>Percent Hispanic</th><td>" + (numhisp.toFixed(2) * 100) + "%</td></tr>" +
+      "<tr><th>Percent Male</th><td>" + (nummale.toFixed(2) * 100) + "%</td></tr>" +
+      "<tr><th>Percent Female</th><td>" + (numfemale.toFixed(2) * 100) + "%</td></tr>" +"<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.NAME);
@@ -228,7 +239,7 @@ var baseLayers = {
 };
 
 var groupedOverlays = {
-  "Points of Interest": {
+  "POI": {
     "<img src='assets/img/modern11.png' width='24' height='28'>&nbsp;Cities and Towns": pointLayer
 
   },

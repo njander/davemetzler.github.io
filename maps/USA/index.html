@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>BootLeaf</title>
+    <title>'Merica</title>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -34,7 +34,7 @@
             <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i class="fa fa-bars fa-lg white"></i></a>
             <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i class="fa fa-search fa-lg white"></i></a>
           </div>
-          <a class="navbar-brand" href="#">BootLeaf</a>
+          <a class="navbar-brand" href="#">Cities of this great Nation</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -45,10 +45,12 @@
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="legend-btn"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Show Legend</a></li>
 
+
               </ul>
             </li>
 
             <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i class="fa fa-list white"></i>&nbsp;&nbsp;POI List</a></li>
+            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a></li>
           </ul>
           <form class="navbar-form navbar-right" role="search">
             <div class="form-group has-feedback">
@@ -56,6 +58,7 @@
                 <span id="searchicon" class="fa fa-search form-control-feedback"></span>
             </div>
           </form>
+          i>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
@@ -141,7 +144,88 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Data about the data that is data</h4>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="aboutTabs">
+              <li class="active"><a href="#about" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the Map</a></li>
+              <li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact Me</a></li>
 
+
+            </ul>
+            <div class="tab-content" id="aboutTabsContent">
+              <div class="tab-pane fade active in" id="about">
+                <p> This map was created using the framework of <a href="https://github.com/bmcbride/bootleaf" target="_blank">Bootleaf</a>, one heck of a template for creating clean interfaces leveraging <a href="http://leafletjs.com/" target="_blank">Leaflet</a>.</p>
+                <div class="panel panel-primary">
+                  <div class="panel-heading">Data</div>
+                  <ul class="list-group">
+                    <li class="list-group-item">State geometries can be found more or less anywhere on the internet anymore. I found mine <a href="http://www.arcgis.com/home/item.html?id=f7f805eb65eb4ab787a0a3e1116ca7e5" target="_blank">here</a>.</li>
+                    <li class="list-group-item">The cities information came from <a href="http://www.baruch.cuny.edu/geoportal/data/esri/esri_usa.htm" target="_blank">here</a>, census data already joined!</li>
+                    <li class="list-group-item">As for the basemap, you cannot beat  <a href="http://www.openstreetmap.org/" target="_blank">Open Street Map</a>.</li>
+
+                  </ul>
+                </div>
+              </div>
+              <div id="disclaimer" class="tab-pane fade text-danger">
+                <p>The data provided on this site is for informational and planning purposes only.</p>
+                <p>All of the data shown on this map is not maintained by me. Just have a click and enjoy yourself!</p>
+              </div>
+              <div class="tab-pane fade" id="contact">
+                <div class="col-sm-6">
+                  <form class="form-horizontal" action="http://formspree.io/sinesoma@gmail.com" method="post">
+                    <fieldset>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label" for="email">Your E-mail</label>
+                        <div class="col-md-9">
+                          <input id="email" type="email" name="_replyto"  placeholder="Your email" class="form-control">
+                        </div>
+                      </div>
+
+                      <!-- Message body -->
+                      <div class="form-group">
+                        <label class="col-md-3 control-label" for="message">Your message</label>
+                        <div class="col-md-9">
+
+                          <textarea class="form-control" id="message" name="body" placeholder="Please enter your message here..." rows="3"></textarea>
+                        </div>
+                      </div>
+
+                      <!-- Form actions -->
+                      <div class="form-group">
+                        <div class="col-md-12 text-right">
+                          <input type="submit" value="Send">
+                        </div>
+                      </div>
+
+                    </fieldset>
+                  </form>
+
+              </div>
+              <div class="tab-pane fade" id="boroughs-tab">
+                <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml" target="_blank">New York City Department of City Planning</a></p>
+              </div>
+              <div class="tab-pane fade" id="subway-lines-tab">
+                <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
+              </div>
+              <div class="tab-pane fade" id="theaters-tab">
+                <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+              </div>
+              <div class="tab-pane fade" id="museums-tab">
+                <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
