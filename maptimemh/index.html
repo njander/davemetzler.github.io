@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <title>Web Maps 101</title>
+    <link href='http://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <style>
+
+      /*
+        SLIDE STYLES:
+        All slides are assumed to contain one 'p' element, one 'img' element, or one of each.
+
+        <div class="slide">
+          -- Default style. If no image, text is centered. If image present, it is centered and text is at the top.
+          -- Arbitrary content could go here too (e.g. I used a couple of iframes), but default behavior will mess with any p or img elements.
+
+        <div class="slide image_full">
+          -- Full 1024x768 img, somewhat faded to black and with bold white text (p) centered on top.
+
+        <div class="slide image_bottom">
+          -- Mostly like default except that image appears at the bottom. (Basically just to give more room for longer text).
+
+        Can make additional class styles for p elements and such if you need different text sizes, colors, etc.
+        (e.g. there is a p.title style with a bigger font)
+
+        img elements themselves are not displayed; rather, their src attributes are applied as div backgrounds. This is to make centering easier, basically.
+      */
+
+      html, body {
+        margin: 0;
+        font: 20px/24px 'Arimo', sans-serif;
+        background-color: #000;
+      }
+      .slide, .slide div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1024px;
+        height: 768px;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+      .slide {
+        background-color: #000;
+
+      }
+      .slide.image_bottom {
+        background-position: center bottom;
+      }
+      .slide p {
+        position: absolute;
+        font-size: 64px;
+        color: #fff;
+        line-height: 72px;
+        font-weight: bold;
+        text-align: center;
+        margin: 15px 1% 0 1%;
+        width: 98%;
+      }
+      .slide ul {
+        top: 50px;
+        left: 300px;
+        position: absolute;
+        color: #fff;
+        font-size: 64px;
+        line-height: 72px;
+        font-weight: bold;
+        text-align: left;
+        margin: 0;
+      }
+      .slide img {
+        display: none;
+      }
+      .slide.image_full {
+        background-color: black;
+      }
+
+      .slide.image_full div {
+        opacity: .5;
+      }
+      .slide.image_full p {
+        color: white;
+        text-shadow:0px 0px 10px #000000;
+      }
+      .slide.image_full.repeat div {
+        background-position: 0 0;
+        background-repeat: repeat;
+      }
+      .slide p.title {
+        font-size: 120px;
+      }
+      a {
+        color: #34d0e7;
+        text-decoration: none;
+      }
+
+      li {
+        color: #34d0e7;
+        text-decoration: none;
+        line-height: 72px;
+        font-weight: bold;
+        text-align: center;
+
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      a.citation {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        color: #000;
+        background-color: rgba(255,255,255,.75);
+      }
+      em {
+        font-style: normal;
+        color: #F3EB37;
+      }
+      .code{
+        font-family: 'Courier New';
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="slide">
+      <p>Starting Up a Github Webpage</p>
+      <a class="citation" target="_blank" href="https://github.com/maptimemilehigh">Nell Conti, Nate Irwin, and Mamata Akella</a>
+    </div>
+
+    <div class="slide image_full">
+      <img src="images/anatomy.jpg"/>
+      <p>Github is a GIS Repository hosting service used by millons to manage projects. Today we are going to use it to host our own static website</p>
+      <a class="citation" target="_blank" href="https://github.com/">#github</a>
+    </div>
+
+    <div class="slide">
+      <p>Follow along! <a target="_blank" href="http://maptimeboston.github.io/web-maps-101" style="font-size:36px"><br/>http://maptimemilehigh.github.io/web-maps-101</a></p>
+    </div>
+
+    <div class="slide image_full">
+      <img src="images/web.jpg"/>
+      <p>What can I host on Github</p>
+    </div>
+
+    <div class="slide">
+      <p> You will be able to host static files of almost any type, but you will <em>not</em> be able to run spoftware (such as Geoserver)</p>
+    </div>
+
+    <div class="slide">
+      <p>What this will allow you to do is run a site such as <a target="_blank" href="http://davemetzler.github.io/">this</a> and host maps such as <a target="_blank" href="http://davemetzler.github.io/maps/denverrec/">this!</a></p>
+    </div>
+
+    <div class="slide image_bottom">
+      <p>In order to do this you will need these things</br>
+      <em>A computer machine</em><br/>
+      <em>the internet</em><br/>
+      <em>a github accont</em><br/>
+      <em>some github Software</em><br/>
+      <em>a fine text editor</em><br/></p>
+
+
+    </div>
+
+    <!-- <div class="slide">
+      <iframe width="100%" height="95%" frameborder="0" src="http://www.nytimes.com/interactive/dining/new-york-health-department-restaurant-ratings-map.html"></iframe>
+      <a class="citation" target="_blank" href="http://www.nytimes.com/interactive/dining/new-york-health-department-restaurant-ratings-map.html">New York Times</a>
+    </div> -->
+
+    <div class="slide">
+      <p>Lets get started, head over to <a target="_blank" href="https://github.com/">github</a> and register (if you dont have an account). go ahead and select the free tier and accept.</p>
+    </div>
+
+    <div class="slide">
+
+      <p>Head over to your email and verify real quick. <em>sweet</em>, you are all signed up.</p>
+    </div>
+
+    <div class="slide">
+
+      <p>Now that we have a username we can fire up a website. have a look <a target="_blank" href="https://pages.github.com/">here</a> for more information.</p>
+    </div>
+
+
+
+
+    <div class="slide image_bottom">
+      <p>We now need to create a repository that is <em>exactly</em> the same as your username plus github.io. so your repo should be <em>username.github.io</em> to do this from the main page click on the "plus" symbol and select <em>new repository.</em>
+      </p>
+
+
+    </div>
+    <div class="slide">
+
+      <p>make sure to name it exactly as your username, it is the only way it will work. Select public (you shouldnt be able to make a private one) and click create</p>
+    </div>
+    <div class="slide">
+
+      <p>Now that we have our repository we need some software to interact with it. you should be automatically directed to the download site for your OS. Go ahead and download the exe and install.</p>
+    </div>
+    <div class="slide">
+
+      <p>Now that we have our repository we need some software to interact with it. you should be automatically directed to the download site for your OS. Go ahead and download the exe and install.</p>
+    </div>
+    <div class="slide">
+
+      <p>We now need to link our account to the software to our accounts so we can add, delete and change files. to do this go to  the wheel, options and login.</p>
+    </div>
+    <div class="slide">
+
+      <p>Our account is now linked, awesome. now we will <em>pull down</em> our repository we created so we can add some web files. Click on the <em>plus</em> in the upper left. you should see a <em>clone</em> option, you should see the repo you created earlier, select it and then select whichever <em>folder</em> on your local you would like to work in.</p>
+    </div>
+
+    <div class="slide">
+    <p>
+      Cruise over to whichever folder/directory you told github to put the repo in. you should see a <em>folder</em> of your reponame. this is where we will place our files.
+    </p>
+    </div>
+    <div class="slide">
+      <p>
+        to save on time lets go ahead and download a simple html template. have a click on <a target="_blank" href="https://github.com/IronSummitMedia/startbootstrap-bare/archive/v1.0.2.zip">here</a> this</p> to download the files.
+      </p>
+    </div>
+    <div class="slide">
+      <p>
+        go ahead and extract the files to your directory. we want the index.html to be at the root of our repo so when someone goes to <em>username.github.io</em> they see our sweet webpages. go ahead and copy the files in the <em>startbootstrap-bare-1.0.2</em> folder and move them up one to the username folder.
+      </p>
+    </div>
+    <div class="slide">
+      <p>
+        sweet. lets see if we can get this bare page published. go back to the gitbug software. you should see a list of all of the files we added. in the middle click on <em>show</em>, this is the commit interface. when you commit something you send it to github. give your commit a name and click commit!
+        </p>
+    </div>
+
+    <div class="slide">
+      <p>
+        now that we have our commit we need to publish it to github. go ahead and fire <em>publish</em> and then <em>sync</em> in the top right. once the progrss bar is done go back to your web browser and have a look at your repo. look at all of those wicked files.
+      </p>
+    </div>
+
+    <div class="slide">
+      <p>
+        And now for the difficult part, waiting. Githun does warn that is may take a few minutes to get the page running the correct way so sit back, relax, maybe read a <a target="_blank" href="http://www.poetryfoundation.org/">poem</a> or two. eventually, you will be able to go to <em>http://username.github.io</em> and see your webpage.
+      </p>
+    </div>
+
+
+    <div class="slide">
+      <p>Find a text editor!<br>
+        <a target="_blank" href="http://notepad-plus-plus.org/">Notepad ++</a><br/>
+        <a target="_blank" href="http://brackets.io/">Brackets</a><br/>
+        <a target="_blank" href="http://www.sublimetext.com/">Sublime Text</a><br/>
+      </p>
+    </div>
+
+
+    <script>
+      // The following is mostly derived from https://github.com/tmcw/big
+
+      var slides = document.getElementsByClassName("slide"),
+        current = 0;
+
+      function go(n){
+        current = n;
+        var slide = slides[n],
+          classes = slide.className.split(" ");
+        for (var i = 0; i < slides.length; i++) slides[i].style.display = 'none';
+        slide.style.display = 'block';
+
+      slide.style.left = (window.innerWidth - slide.offsetWidth) / 2 + "px";
+      slide.style.top = (window.innerHeight - slide.offsetHeight) / 2 + "px";
+
+        if ( classes[1] && styleSlide[classes[1]] ) styleSlide[classes[1]](slide);
+        else styleSlide.normal(slide);
+        resize();
+
+        if (window.location.hash !== n) window.location.hash = n;
+      }
+
+      var styleSlide = {
+        heading: function(slide){
+          var p = slide.getElementsByTagName("p")[0];
+          p.style.marginTop = (slide.offsetHeight - p.offsetHeight) / 2 + "px";
+        },
+
+        image_full: function(slide){
+          var img = slide.getElementsByTagName("img")[0];
+          var p = slide.getElementsByTagName("p")[0];
+          var div = slide.getElementsByTagName("div")[0] || document.createElement("div");
+          div.style.backgroundImage = 'url(' + img.src + ')';
+          slide.insertBefore(div,p);
+              img.style.display = 'none';
+          p.style.marginTop = (slide.offsetHeight - p.offsetHeight) / 2 + "px";
+        },
+
+        image_bottom: function(slide){
+          var img = slide.getElementsByTagName("img")[0];
+          if ( !img ) return;
+              slide.style.backgroundImage = 'url(' + img.src + ')';
+              img.style.display = 'none';
+        },
+
+        normal: function(slide){
+          var img = slide.getElementsByTagName("img")[0];
+          var p = slide.getElementsByTagName("p")[0];
+
+          if ( img ){
+            slide.style.backgroundImage = 'url(' + img.src + ')';
+          } else if (!img && !slide.getElementsByTagName("iframe")[0]){
+            if ( p ){
+              p.style.marginTop = (slide.offsetHeight - p.offsetHeight) / 2 + "px";
+            }
+          }
+        }
+      }
+
+      document.onclick = function() { go(++current % (slides.length)); };
+        function fwd() { go(Math.min(slides.length - 1, ++current)); }
+        function rev() { go(Math.max(0, --current)); }
+        document.onkeydown = function(e) {
+            if (e.which === 39 || e.which === 34 || e.which === 40) fwd();
+            if (e.which === 37 || e.which === 33 || e.which === 38) rev();
+        };
+        document.ontouchstart = function(e) {
+            var x0 = e.changedTouches[0].pageX;
+            document.ontouchend = function(e) {
+                var x1 = e.changedTouches[0].pageX;
+                if (x1 - x0 < 0) fwd();
+                if (x1 - x0 > 0) rev();
+            };
+        };
+
+        function parse_hash() {
+            return Math.max(Math.min(slides.length - 1,
+                parseInt(window.location.hash.substring(1), 10)), 0);
+        }
+        if (window.location.hash) current = parse_hash() || current;
+        window.onhashchange = function() {
+            var c = parse_hash();
+            if (c !== current) go(c);
+        };
+        window.onresize = resize;
+
+        function resize(){
+          var s = Math.min( 1, Math.min( window.innerHeight / 768, window.innerWidth / 1024 ) );
+            slides[current].style.webkitTransform = "scale(" + s + "," + s +")";
+          slides[current].style.MozTransform = "scale(" + s + "," + s +")";
+          slides[current].style.msTransform = "scale(" + s + "," + s +")";
+          slides[current].style.transform = "scale(" + s + "," + s +")";
+        }
+        go(current);
+    </script>
+  </body>
+</html>

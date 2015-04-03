@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>A Leaflet map!</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <style>
+      #map{ width: 900px; height: 500px; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+    // Initialize the map.
+    var map = L.map('map').setView([39.75, -105], 13);
+
+    // Load a tile layer.
+    L.tileLayer('http://b.tile.stamen.com/watercolor/{z}/{x}/{y}.png', {
+      attribution: 'Tiles by <a href="http://stamen.com">Stamen</a>',
+      maxZoom: 17,
+      minZoom: 9
+    }).addTo(map);
+    </script>
+  </body>
+</html>
